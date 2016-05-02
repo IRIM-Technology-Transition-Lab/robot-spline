@@ -48,7 +48,7 @@ class Spline:
 
         polynomial_array = np.array([self.bernstein_polynomial(i, n_points-1, t) for i in range(0, n_points)])
 
-        # print(polynomial_array.shape)
+        print(polynomial_array.shape)
         xvals = np.dot(xPoints, polynomial_array)
         yvals = np.dot(yPoints, polynomial_array)
         zvals = np.dot(zPoints, polynomial_array)
@@ -74,14 +74,14 @@ class Spline:
         xnew, ynew, znew = sci.splev(np.linspace(0, 1, n), tckp)
         return xnew, ynew, znew
 
-    def get_path(self, cur_pt, goal_pt, next_pt, freq=65, velocity=0.002, n=None, bezier=True):
+    def get_path(self, cur_pt, goal_pt, next_pt, freq=65, velocity=0.05, n=None, bezier=True):
         """
         Args:
             cur_pt: The current point of the robot.
             goal_pt: The current goal to which the robot is trying to move.
             next_pt: The point the robot will move to next after the goal point.
             freq: The frequency at which the robot can handle new goal points.
-            velocity: The velocity with which the robot will be moved (in m/s).
+            velocity: The velocity with which the robot will be moved.
             n: The number of points in the path to be interpolated (optional).
             bezier: Flag to specify if the path should be a bezier curve or go through each point.
 
@@ -107,24 +107,30 @@ class Spline:
 
     @staticmethod
     def get_optimal_n(points, v, f):
-        """
-        Return the optimal number of points to interpolate on based on the speed of the robot and the
-        frequency at which it can accept new goal points.
-
-        Args:
-            points: A dense set of points interpolated with an arbitrarily high n.
-            v: The velocity of the robot.
-            f: The frequency at which the robot can receive new goal points.
-
-        Returns:
-
-        """
         l = 0
         for i in range(len(points)-1):
-            # Euclidean Distance between each succesive pair of points
-            d = sum([(points[i][j] - points[i+1][j])**2 for j in range(len(points[i]))])
-            l += np.sqrt(d)
+            l += np.sqrt((points[i] - points[i+1])**2)
 
-        n = (l / v) / f
+        n = (l / v) * f
+        return n
 
-        return int(n)
+
+if __name__ == "__main__":
+    
+    cur_pt = [5, 7, 13]
+    goal_pt = [1, 9, 0]
+    next_pt = [15, 2, 11]
+
+    spline = Spline(order=2)
+    path = spline.get_path(cur_pt, goal_pt, next_pt, n=30, bezier=True)
+    
+    for axis in range(len(path)):
+        print(path[axis])
+
+    import matplotlib.pyplot as plt
+    from mpl_toolkits.mplot3d import Axes3D
+
+    fig = plt.figure()
+    ax = Axes3D(fig, elev=-150, azim=110)
+    ax.plot(path[0], path[1], path[2])
+    plt.show()

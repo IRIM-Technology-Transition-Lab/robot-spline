@@ -1,6 +1,26 @@
 import spline
 
 
+def test_spline_plot():
+    cur_pt = [5, 7, 13]
+    goal_pt = [1, 9, 0]
+    next_pt = [15, 2, 11]
+
+    spline = Spline(order=2)
+    path = spline.get_path(cur_pt, goal_pt, next_pt, n=30, bezier=True)
+
+    for axis in range(len(path)):
+        print(path[axis])
+
+    import matplotlib.pyplot as plt
+    from mpl_toolkits.mplot3d import Axes3D
+
+    fig = plt.figure()
+    ax = Axes3D(fig, elev=-150, azim=110)
+    ax.plot(path[0], path[1], path[2])
+    plt.show()
+
+
 def test_spline():
 
     cur_pt = [5, 7, 13]
@@ -36,5 +56,7 @@ def test_optimal_n():
     print(len(path))
 
 
-test_spline()
-test_optimal_n()
+def main():
+    test_spline()
+    test_optimal_n()
+    test_spline_plot()

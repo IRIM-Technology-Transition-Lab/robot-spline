@@ -108,9 +108,13 @@ class Spline:
     @staticmethod
     def get_optimal_n(points, v, f):
         l = 0
-        for i in range(len(points)-1):
-            l += np.sqrt((points[i] - points[i+1])**2)
 
+        for i in range(len(points)-1):
+            # Calculate the euclidean distance
+            eucl_d = np.sum(np.asmatrix(points[i]) - np.asmatrix(points[i+1]))
+            l += np.sqrt(eucl_d**2)
+
+        print("L: {0}, v: {1}, f: {2}".format(l, v, f))
         n = (l / v) * f
         return n
 

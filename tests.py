@@ -6,8 +6,8 @@ def test_spline_plot():
     goal_pt = [1, 9, 0]
     next_pt = [15, 2, 11]
 
-    spline = Spline(order=2)
-    path = spline.get_path(cur_pt, goal_pt, next_pt, n=30, bezier=True)
+    spliner = spline.Spline(order=2)
+    path = spliner.get_path(cur_pt, goal_pt, next_pt, n=30, bezier=True)
 
     for axis in range(len(path)):
         print(path[axis])
@@ -17,7 +17,11 @@ def test_spline_plot():
 
     fig = plt.figure()
     ax = Axes3D(fig, elev=-150, azim=110)
-    ax.plot(path[0], path[1], path[2])
+
+    xs = [x for x, y, z in path]
+    ys = [y for x, y, z in path]
+    zs = [z for x, y, z in path]
+    ax.plot(xs, ys, zs)
     plt.show()
 
 
@@ -51,8 +55,8 @@ def test_optimal_n():
     spliner = spline.Spline(order=2)
     path = spliner.get_path(current_point[:3], goal_point[:3], next_point[:3], bezier=True)
 
-    assert(len(path) == 11)
-
+    print("Optimal number of points")
+    assert(len(path) == 3261)
     print(len(path))
 
 

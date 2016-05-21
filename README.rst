@@ -1,3 +1,3 @@
 # Robot Spline 
 
-Spline Path Creation Library
+Spline Path Generation Library

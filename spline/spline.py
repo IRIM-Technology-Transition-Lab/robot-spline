@@ -107,6 +107,16 @@ class Spline:
 
     @staticmethod
     def get_optimal_n(points, v, f):
+        """
+        Retrieve the best number of points given the velocity you want the robot to move at and the frequency which it can handle.
+        Args:
+            points (): The list of points which are received.
+            v (): The velocity at which the robot will move.
+            f (): The frequency at which the robot can accept points.
+
+        Returns:
+            The optimal number of points `n` for which to create the spline curve.
+        """
         l = 0
 
         for i in range(len(points)-1):
@@ -120,5 +130,6 @@ class Spline:
 
 
 if __name__ == "__main__":
+    # Run the test suite
     import tests
     tests.main()

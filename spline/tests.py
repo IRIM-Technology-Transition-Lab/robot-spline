@@ -1,39 +1,18 @@
 import spline
 
-
-def test_spline_plot():
-    cur_pt = [5, 7, 13]
-    goal_pt = [1, 9, 0]
-    next_pt = [15, 2, 11]
-
-    spliner = spline.Spline(order=2)
-    path = spliner.get_path(cur_pt, goal_pt, next_pt, n=30, bezier=True)
-
-    for axis in range(len(path)):
-        print(path[axis])
-
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
-
-    fig = plt.figure()
-    ax = Axes3D(fig, elev=-150, azim=110)
-
-    xs = [x for x, y, z in path]
-    ys = [y for x, y, z in path]
-    zs = [z for x, y, z in path]
-    ax.plot(xs, ys, zs)
-    plt.show()
-
-
 def test_spline():
-
+    # Define 3 points
     cur_pt = [5, 7, 13]
     goal_pt = [1, 9, 0]
     next_pt = [15, 2, 11]
 
+    # Create our spliner object
     spliner = spline.Spline(order=2)
+
+    # Given the 3 points, generate the spline path as a bezier curve
     path = spliner.get_path(cur_pt, goal_pt, next_pt, n=30, bezier=True)
 
+    # Print the points in the path
     for axis in range(len(path)):
         print(path[axis])
 
@@ -44,10 +23,12 @@ def test_optimal_n():
     current_point = center
     print("Current: {}".format(current_point))
 
+    # Create a point a bit to the right of center
     goal_point = list(center)
     goal_point[0] = center[0] + 0.2
     print("Goal: {}".format(goal_point))
 
+    # Create a point to the top of goal point
     next_point = list(goal_point)
     next_point[2] = goal_point[2] + 0.1
     print("Next: {}".format(next_point))
@@ -63,4 +44,3 @@ def test_optimal_n():
 def main():
     test_spline()
     test_optimal_n()
-    test_spline_plot()

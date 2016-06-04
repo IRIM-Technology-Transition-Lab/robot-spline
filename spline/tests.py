@@ -1,5 +1,6 @@
 import spline
 
+
 def test_spline():
     # Define 3 points
     cur_pt = [5, 7, 13]

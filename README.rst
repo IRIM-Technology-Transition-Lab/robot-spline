@@ -10,6 +10,9 @@ Spline Path Generation Library (especially for Robotics)
 .. image:: https://badge.fury.io/py/robot-spline.svg
     :target: https://badge.fury.io/py/robot-spline
 
+Description
+-----------
+
 This package is used to generate spline paths (simple or bezier), which a can then be submitted to a robot to follow.
 
 Installation
@@ -21,7 +24,9 @@ Installation
 Example
 -------- 
 
-You can generate a spline path quite easily::
+You can generate a spline path quite easily:
+
+.. code-block:: python
 
     # Import the package
     import spline

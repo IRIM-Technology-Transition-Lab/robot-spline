@@ -6,6 +6,15 @@ from scipy.misc import comb
 class Spline:
 
     def __init__(self, smoothness=3, order=3, nest=-1):
+        """
+        Initialize a Spline object to help create the spline path.
+
+        Args:
+            self: The spline object.
+            smoothness: A smoothing condition. The amount of smoothness is determined by satisfying the conditions: sum((w * (y - g))**2,axis=0) <= s, where g(x) is the smoothed interpolation of (x,y). The user can use s to control the trade-off between closeness and smoothness of fit. Larger s means more smoothing while smaller values of s indicate less smoothing.
+            order: The degree of the spline path. Cubic splines are recommended. Even values of k should be avoided especially with a small s-value. 1 <= k <= 5, default is 3.
+            nest: An over-estimate of the total number of knots of the spline to help in determining the storage space.
+        """
         self.smoothness = smoothness
         self.order = order
         self.nest = nest    # Estimate of number of knots needed

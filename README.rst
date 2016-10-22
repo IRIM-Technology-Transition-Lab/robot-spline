@@ -24,7 +24,9 @@ Installation
 Example
 -------- 
 
-You can generate a spline path quite easily::
+You can generate a spline path quite easily:
+
+.. code-block:: python
 
     # Import the package
     import spline

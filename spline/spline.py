@@ -4,6 +4,7 @@ from scipy.misc import comb
 
 
 class Spline:
+    """The Spline class which abstracts the spline path generation."""
 
     def __init__(self, smoothness=3, order=3, nest=-1):
         """
@@ -22,7 +23,8 @@ class Spline:
     @staticmethod
     def bernstein_polynomial(i, n, t):
         """
-        The Bernstein polynomial of n, i as a function of t
+        The Bernstein polynomial of n, i as a function of t.
+
         Args:
             self: The Spline object
             i: Counter for the current set of points that is being interpolated.
@@ -36,8 +38,7 @@ class Spline:
 
     def bezier_curve(self, points, n=1000):
         """
-        Given a set of control points, return the bezier curve defined by the control points.
-        See http://processingjs.nihongoresources.com/bezierinfo/
+        Given a set of control points, return the bezier curve defined by the control points. See http://processingjs.nihongoresources.com/bezierinfo/ for more information.
 
         Args:
             points: A list of lists that should have atleast 3 points, the current point,
@@ -85,6 +86,8 @@ class Spline:
 
     def get_path(self, cur_pt, goal_pt, next_pt, freq=65, velocity=0.05, n=None, bezier=True):
         """
+        Return a list of n points which correspond to a spline path from `cur_pt` to `goal_pt` via `next_pt`.
+
         Args:
             cur_pt: The current point of the robot.
             goal_pt: The current goal to which the robot is trying to move.
@@ -118,6 +121,7 @@ class Spline:
     def get_optimal_n(points, v, f):
         """
         Retrieve the best number of points given the velocity you want the robot to move at and the frequency which it can handle.
+
         Args:
             points (): The list of points which are received.
             v (): The velocity at which the robot will move.
